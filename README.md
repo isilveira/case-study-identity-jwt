@@ -1,1 +1,2 @@
-# case-study-identity-jwt
+# IdentityJWT Project
+Study case of Identity + JWT - Webapi Authentication & Authorization.
