@@ -27,7 +27,7 @@ namespace Authorizer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddMvcCore();
+            services.AddMvc();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettingsHelper>(appSettingsSection);

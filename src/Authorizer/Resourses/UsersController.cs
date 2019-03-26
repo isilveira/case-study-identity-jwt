@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Authorizer.Resourses
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -24,31 +25,38 @@ namespace Authorizer.Resourses
             this._appSettingsHelper = options.Value;
         }
 
-        [AllowAnonymous]
         [HttpGet]
-        public ActionResult<string[]> Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "A", "B" };
+            return Ok(new string[] { "A", "B" });
         }
 
         [AllowAnonymous]
-        [HttpGet("authenticate")]
+        [HttpPost("authenticate")]
         public ActionResult<string> Authenticate(string user, string password)
         {
+            if(string.IsNullOrWhiteSpace(user) || user != "test" || string.IsNullOrWhiteSpace(password) || password != "123456")
+            {
+                return BadRequest();
+            }
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this._appSettingsHelper.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name,"user_id")
+                    new Claim(ClaimTypes.PrimarySid,"1"),
+                    new Claim(ClaimTypes.Name,"Ítalo"),
+                    new Claim(ClaimTypes.Surname,"Silveira"),
+                    new Claim(ClaimTypes.Email,"italo.silveira@baysoft.com.br")
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            return Ok(tokenHandler.WriteToken(token));
         }
     }
 }
