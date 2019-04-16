@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Authorizer.Core.Domain.Entities
 {
-    public class User : IdentityUser<long>
+    public class User : IdentityUser
     {
         public User()
         {
