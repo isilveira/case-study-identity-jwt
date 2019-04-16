@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorizer", "src\Authorizer\Authorizer.csproj", "{BC832BE8-AE96-48E9-B59F-2E4869AF8281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorizer", "src\Authorizer\Authorizer.csproj", "{BC832BE8-AE96-48E9-B59F-2E4869AF8281}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7AA2F486-8912-42BF-9705-ABFEBA2F3BEA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{06992049-16D1-4D01-A015-AC634B419FF6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreAPI", "samples\StoreAPI\StoreAPI.csproj", "{1937C7E6-6E2C-4A9D-A70B-C8F94D8AE380}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorizer.Core", "Authorizer.Core\Authorizer.Core.csproj", "{0CD4ED9E-1816-4D70-A369-7D72B65C7942}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorizer.CrossCutting", "Authorizer.CrossCutting\Authorizer.CrossCutting.csproj", "{351A4F28-F5A0-43CB-BD16-50464E1A8781}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,14 @@ Global
 		{1937C7E6-6E2C-4A9D-A70B-C8F94D8AE380}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1937C7E6-6E2C-4A9D-A70B-C8F94D8AE380}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1937C7E6-6E2C-4A9D-A70B-C8F94D8AE380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CD4ED9E-1816-4D70-A369-7D72B65C7942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD4ED9E-1816-4D70-A369-7D72B65C7942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD4ED9E-1816-4D70-A369-7D72B65C7942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD4ED9E-1816-4D70-A369-7D72B65C7942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{351A4F28-F5A0-43CB-BD16-50464E1A8781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{351A4F28-F5A0-43CB-BD16-50464E1A8781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{351A4F28-F5A0-43CB-BD16-50464E1A8781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{351A4F28-F5A0-43CB-BD16-50464E1A8781}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +44,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{BC832BE8-AE96-48E9-B59F-2E4869AF8281} = {7AA2F486-8912-42BF-9705-ABFEBA2F3BEA}
 		{1937C7E6-6E2C-4A9D-A70B-C8F94D8AE380} = {06992049-16D1-4D01-A015-AC634B419FF6}
+		{0CD4ED9E-1816-4D70-A369-7D72B65C7942} = {7AA2F486-8912-42BF-9705-ABFEBA2F3BEA}
+		{351A4F28-F5A0-43CB-BD16-50464E1A8781} = {7AA2F486-8912-42BF-9705-ABFEBA2F3BEA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C033BF8-C29D-4D13-ADE7-ADE599677CA1}

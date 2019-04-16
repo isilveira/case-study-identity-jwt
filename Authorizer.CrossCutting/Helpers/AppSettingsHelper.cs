@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Authorizer.Helpers
+namespace Authorizer.CrossCutting.Helpers
 {
     public class AppSettingsHelper
     {
