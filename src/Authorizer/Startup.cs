@@ -1,4 +1,5 @@
-﻿using Authorizer.CrossCutting.Helpers;
+﻿using Authorizer.Core.Middleware;
+using Authorizer.CrossCutting.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,6 +40,8 @@ namespace Authorizer
             var appSettings = appSettingsSection.Get<AppSettingsHelper>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
+            services.AddCoreMiddleware();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -71,6 +74,8 @@ namespace Authorizer
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseCoreMiddleware();
 
             app.UseAuthentication();
 
