@@ -9,5 +9,10 @@ namespace Authorizer.Core.Application.Users.Commands.Authenticate
     {
         public string Credential { get; set; }
         public string Password { get; set; }
+
+        internal void ClearPassword()
+        {
+            Password = "********";
+        }
     }
 }
