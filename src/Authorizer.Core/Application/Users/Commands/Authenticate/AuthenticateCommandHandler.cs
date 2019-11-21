@@ -1,4 +1,5 @@
 ﻿using Authorizer.Core.Domain.Entities;
+using Authorizer.Core.Domain.Services;
 using Authorizer.Core.Infrastructures.Data;
 using Authorizer.CrossCutting.Helpers;
 using MediatR;
@@ -22,6 +23,7 @@ namespace Authorizer.Core.Application.Users.Commands.Authenticate
         //private SignInManager<User> SignInManager{ get; set; }
         
         private IOptions<AppSettingsHelper> Options { get; set; }
+        private TokenService TokenService { get; set; }
         public AuthenticateCommandHandler(
             //SignInManager<User> signInManager,
             IOptions<AppSettingsHelper> options
@@ -29,48 +31,34 @@ namespace Authorizer.Core.Application.Users.Commands.Authenticate
         {
             //SignInManager = signInManager;
             Options = options;
+            TokenService = new TokenService();
         }
         public async Task<AuthenticateCommandResponse> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(request.Credential) || request.Credential != "isilveira" || string.IsNullOrWhiteSpace(request.Password) || request.Password != "is2019")
+            if (string.IsNullOrWhiteSpace(request.Credential)
+                || request.Credential != "isilveira"
+                || string.IsNullOrWhiteSpace(request.Password)
+                || request.Password != "is2019")
             {
                 throw new Exception("Credenciais inválidas!");
             }
 
-            /*
-            var signInResponse = await SignInManager.PasswordSignInAsync(request.Credential, request.Password, true, true);
-
-            if(!signInResponse.Succeeded){
-                throw new Exception("Credentials and/or password invalids!");
-            }
-            */
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Options.Value.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var user = new User
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Role,"IdentityToken"),
-                    new Claim(ClaimTypes.PrimarySid,"1"),
-                    new Claim(ClaimTypes.Name,"Ítalo"),
-                    new Claim(ClaimTypes.Surname,"Silveira"),
-                    new Claim(ClaimTypes.Email,"italo.silveira@baysoft.com.br")
-                }),
-                Expires = DateTime.UtcNow.AddDays(10),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Id = "1",
+                UserName = "Ítalo",
+                Email = "italo.silveira@baysoft.com.br"
             };
 
-            request.ClearPassword();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var identityToken = TokenService.GenerateIdentityTokenForUser(user, Options.Value.Secret);
+            
             return new AuthenticateCommandResponse
             {
                 Request = request,
                 Message = "Operação realizada com sucesso!",
                 Data = new AuthenticateCommandResponseDTO
                 {
-                    IdentityToken = tokenHandler.WriteToken(token)
+                    IdentityToken = identityToken
                 }
             };
         }

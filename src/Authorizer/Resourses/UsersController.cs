@@ -1,9 +1,12 @@
 ﻿using Authorizer.Core.Application.Users.Commands.Authenticate;
+using Authorizer.Core.Application.Users.Queries.GetAccessToken;
 using Authorizer.Resourses.Bases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Authorizer.Resourses
@@ -25,34 +28,16 @@ namespace Authorizer.Resourses
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<ActionResult<AuthenticateCommandResponse>> Authenticate(AuthenticateCommand command)
+        public async Task<ActionResult<AuthenticateCommandResponse>> Authenticate(AuthenticateCommand request)
         {
-            return await Send(command);
+            return await Send(request);
         }
 
         [Authorize(Roles = "IdentityToken")]
-        [HttpPost("accesstoken")]
-        public ActionResult<string> AccessToken()
+        [HttpGet("accesstoken")]
+        public async Task<ActionResult<GetAccessTokenQueryResponse>> GetAccessToken(GetAccessTokenQuery request)
         {
-            throw new NotImplementedException();
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = Encoding.ASCII.GetBytes(this._appSettingsHelper.Secret);
-        //    var tokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Subject = new ClaimsIdentity(new Claim[]
-        //        {
-        //            new Claim(ClaimTypes.Role,"AccessToken"),
-        //            new Claim(ClaimTypes.PrimarySid,"1"),
-        //            new Claim(ClaimTypes.Name,"Ítalo"),
-        //            new Claim(ClaimTypes.Surname,"Silveira"),
-        //            new Claim(ClaimTypes.Email,"italo.silveira@baysoft.com.br")
-        //        }),
-        //        Expires = DateTime.UtcNow.AddMinutes(5),
-        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        //    };
-
-        //    var token = tokenHandler.CreateToken(tokenDescriptor);
-        //    return Ok(tokenHandler.WriteToken(token));
+            return await Send(request);
         }
     }
 }
